@@ -4,6 +4,7 @@ package main
 import "trickyunits/ansistring"
 import "trickyunits/qstr"
 import "fmt"
+import "strings"
 
 func mag(s string) string{ return ansistring.SCol(s,ansistring.A_Magenta) }
 func cya(s string) string{ return ansistring.SCol(s,ansistring.A_Cyan) }
@@ -18,4 +19,14 @@ func ai(question string) string{
 	ret:=qstr.RawInput(ansistring.ICol(ansistring.A_Cyan,0,0))
 	fmt.Print(ansistring.ANUL())
 	return ret
-}	
+}
+
+
+func yes(question string) bool{
+	wmag(question)
+	fmt.Print(ansistring.SCol(" ? ",ansistring.A_Cyan,ansistring.A_Blink)
+	answer:=ai("(Y/N)")
+	answer=qstr.MyTrim(answer)
+	answer=strings.Upper(answer)
+	return qstr.Left(answer,1)=="Y"
+}
