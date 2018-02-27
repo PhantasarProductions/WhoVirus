@@ -3,7 +3,7 @@ package main
 import "trickyunits/dirry"
 import "trickyunits/qff"
 
-type tuser{
+type tuser struct{
 	name string
 	file string
 	password string
@@ -14,14 +14,14 @@ type tuser{
 }
 
 var user tuser
-var userdir = dirry("$AppSupport$/$LinuxDot$Phantasar Productions/Who Is The Virus/")
+var userdir = dirry.Dirry("$AppSupport$/$LinuxDot$Phantasar Productions/Who Is The Virus/")
 
-func CreateUser(file,username,password){
+func CreateUser(file,username,password string){
 }
 
 func Login(){
 	username:= ai("UserName: ")
 	password:= ai("Password: ")
 	file:=userdir+username
-	if !qff.isfile(file) { CreateUser(file,username,password) }
+	if !qff.Exists(file) { CreateUser(file,username,password) }
 }

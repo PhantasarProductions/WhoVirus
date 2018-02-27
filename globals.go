@@ -1,8 +1,8 @@
 package main
 
-type session{
+type session struct{
 	runs int
 	deletions int
 	files map[string] string
 }
-	
+
