@@ -7,9 +7,13 @@ import "fmt"
 import "strings"
 
 func mag(s string) string{ return ansistring.SCol(s,ansistring.A_Magenta,0) }
+func yel(s string) string{ return ansistring.SCol(s,ansistring.A_Yellow,0) }
 func cya(s string) string{ return ansistring.SCol(s,ansistring.A_Cyan,0) }
 
 func wmag(s string) { fmt.Print(mag(s)) }
+func wcya(s string) { fmt.Print(cya(s)) }
+func wyel(s string) { fmt.Print(yel(s)) }
+
 
 
 
@@ -29,4 +33,10 @@ func yes(question string) bool{
 	answer=qstr.MyTrim(answer)
 	answer=strings.ToUpper(answer)
 	return qstr.Left(answer,1)=="Y"
+}
+
+func doing(a,b string){
+	wyel(a+" ")
+	wcya(b)
+	fmt.Print("\n")
 }
