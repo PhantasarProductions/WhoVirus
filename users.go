@@ -2,6 +2,7 @@ package main
 
 import "trickyunits/dirry"
 import "trickyunits/qff"
+import "trickyunits/ansistring"
 import "os"
 
 type tuser struct{
@@ -22,7 +23,7 @@ func SaveUser(){
 	
 }
 
-func NewUser(f,uname,pass)
+func NewUser(f,uname,pass string){
 	user = tuser{}
 	doing("Creating user:",uname)
 	user.name=uname
