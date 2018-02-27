@@ -173,4 +173,7 @@ func namelist()([]string,map[string]string){
 
 var Names,Sex = namelist()
 
+func init(){
+   if len(Names)<100 { panic("I need at least 100 names") }
+}
 
