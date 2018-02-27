@@ -2,6 +2,7 @@ package main
 
 import "trickyunits/dirry"
 import "trickyunits/qff"
+import "os"
 
 type tuser struct{
 	name string
@@ -17,6 +18,7 @@ var user tuser
 var userdir = dirry.Dirry("$AppSupport$/$LinuxDot$Phantasar Productions/Who Is The Virus/")
 
 func CreateUser(file,username,password string){
+	if !yes("Create user '"+username+"'") { os.Exit(0) }
 }
 
 func Login(){
