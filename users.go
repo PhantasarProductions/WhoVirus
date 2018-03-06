@@ -2,11 +2,13 @@ package main
 
 import "trickyunits/dirry"
 import "trickyunits/qff"
+import "trickyunits/qstr"
 import "trickyunits/ansistring"
 import jcr6 "trickyunits/jcr6/jcr6main"
 import _ "trickyunits/jcr6/jcr6lzma"
 import "os"
 import "fmt"
+import "strings"
 
 type tuser struct{
 	name string
@@ -33,10 +35,10 @@ func SaveUser(){
 	// Session data
 	// Writeout         
 	e:=os.MkdirAll(userdir,0777)
-	j:=jcr6.JCR_Create(user.file,"BRUTE")
 	if e!=nil {
 		panic (e)
 	}
+	j:=jcr6.JCR_Create(user.file,"BRUTE")
 	j.AddString(wo,"User","BRUTE",0777,0,"Mr. Virus","I ruin you all")
 	j.Close()
 }
@@ -60,9 +62,48 @@ func CreateUser(file,username,password string){
 	SaveUser()
 }
 
+func LoadUser(f,un,pw string) bool{
+	j:=jcr6.Dir(un)
+	b:=jcr6.JCR_B(j,"User")
+	d:=string(b)
+	l:=strings.Split(d,"\n")
+	user=tuser{}
+	for li,ln:=range l {
+		if ln!="" {
+			p:=strings.Index(ln," ")
+			if p<0 { panic(fmt.Sprintf("Invalid line in userdata in line %d",li)) }
+			c:=qstr.MyTrim(ln[:p])
+			a:=qstr.MyTrim(ln[p+1:])
+			switch c{
+				case "PW": 
+					user.password=a
+				case "INSESSION":
+					user.insession=a=="true"
+				case "ANSI":
+					user.ansi=a=="true"
+				default:
+						wred("ERROR! ")
+						wyel(fmt.Sprintf("I don't understand line %d -- $s",li,ln))
+						fmt.Println("")
+			}
+		}
+	}
+	if user.password!=pw {
+		wred("ERROR! ") 
+		wyel("Incorrect password!\n")
+	}
+	return user.password==pw
+}
+
 func Login(){
-	username:= ai("UserName: ")
-	password:= ai("Password: ")
-	file:=userdir+username
-	if !qff.Exists(file) { CreateUser(file,username,password) }
+	for {
+		username:= ai("UserName: ")
+		password:= ai("Password: ")
+		file:=userdir+username
+		mn:=!qff.Exists(file)
+		if  mn { CreateUser(file,username,password) }
+		if LoadUser(file,username,password) { 
+			return
+		}
+	}
 }
