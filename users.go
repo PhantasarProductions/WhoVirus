@@ -63,7 +63,11 @@ func CreateUser(file,username,password string){
 }
 
 func LoadUser(f,un,pw string) bool{
-	j:=jcr6.Dir(un)
+	if jcr6.Recognize(f)=="NONE" {
+		wred("ERROR! ")
+		wyel("User "+un+" not recognized")
+	}
+	j:=jcr6.Dir(f)
 	b:=jcr6.JCR_B(j,"User")
 	d:=string(b)
 	l:=strings.Split(d,"\n")
@@ -83,7 +87,7 @@ func LoadUser(f,un,pw string) bool{
 					user.ansi=a=="true"
 				default:
 						wred("ERROR! ")
-						wyel(fmt.Sprintf("I don't understand line %d -- $s",li,ln))
+						wyel(fmt.Sprintf("I don't understand line %d -- %s",li,ln))
 						fmt.Println("")
 			}
 		}
