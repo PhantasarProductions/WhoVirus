@@ -6,3 +6,10 @@ type session struct{
 	files map[string] string
 }
 
+func b2s(a bool) string{
+	if a {
+		return "true"
+	} else {
+		return "false"
+	}
+}
