@@ -29,8 +29,8 @@ func SaveUser(){
 	// global user data
 	wo:="PW "+user.password+"\n"
 	wo+="INSESSION "+b2s(user.insession)+"\n"
-	wo+=fmt.Sprintf("TOTALSCORE %s\n",user.totalscore)
-	wo+=fmt.Sprintf("SESSIONS %s\n",user.sessions)
+	wo+=fmt.Sprintf("TOTALSCORE %d\n",user.totalscore)
+	wo+=fmt.Sprintf("SESSIONS %d\n",user.sessions)
 	wo+="ANSI "+b2s(user.ansi)+"\n"
 	// Session data
 	// Writeout         
