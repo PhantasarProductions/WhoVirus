@@ -90,6 +90,10 @@ func LoadUser(f,un,pw string) bool{
 					i,e:=conv.ParseInt(a,10,32)
 					if e!=nil { panic(e); }
 					user.totalscore=int(i)
+				case "SESSIONS": 
+					i,e:=conv.ParseInt(a,10,32)
+					if e!=nil { panic(e); }
+					user.sessions=int(i)
 				default:
 						wred("ERROR! ")
 						wyel(fmt.Sprintf("I don't understand line %d -- %s",li,ln))
