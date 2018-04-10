@@ -8,6 +8,7 @@ import jcr6 "trickyunits/jcr6/jcr6main"
 import _ "trickyunits/jcr6/jcr6lzma"
 import "os"
 import "fmt"
+import conv "strconv"
 import "strings"
 
 type tuser struct{
@@ -85,6 +86,10 @@ func LoadUser(f,un,pw string) bool{
 					user.insession=a=="true"
 				case "ANSI":
 					user.ansi=a=="true"
+				case "TOTALSCORE":
+					i,e:=conv.ParseInt(a,10,32)
+					if e!=nil { panic(e); }
+					user.totalscore=int(i)
 				default:
 						wred("ERROR! ")
 						wyel(fmt.Sprintf("I don't understand line %d -- %s",li,ln))
