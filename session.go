@@ -5,6 +5,7 @@ import(
 	"math/rand"
 	"time"
 	"trickyunits/qstr"
+	"strings"
 )
 
 var CSDBG = true // When true debugging information is shown during creation of the session.
@@ -29,6 +30,15 @@ func NHave(name string) bool{
 	return ok
 }
 
+func got(r string) bool{
+	for _,s := range user.ses.files{
+		//CSChat("= checking: "+n+" contains \""+s+"\" and may not be \""+r+"\"")
+		if s==r { return true }
+	}
+	return false
+}
+
+
 type tHint struct { h func(virus,name string) string }
 var Hints = []tHint{
 	{	func(virus,name string) string{
@@ -39,6 +49,76 @@ var Hints = []tHint{
 			return "The virus starts with the letter: "+st
 		},
 	},
+	{	func(virus,name string) string{
+			st:=qstr.Left(virus,1)
+			r:= "The virus doesn't start with the letter: "+st
+			if got(r) { return "" }
+			return r
+		},
+	},
+	{	func(virus,name string) string{
+			l:=len(virus)
+			for l==len(virus){
+				l=rand.Intn(20)
+			}
+			r:= fmt.Sprintf("The virus has %d letters",l)
+			if got(r) { r="" }
+			return r
+		},
+	},
+	{	func(virus,name string) string{
+			l:=len(virus)
+			r:= fmt.Sprintf("The virus does not have %d letters",l)
+			return r
+		},
+	},
+	{	func(virus,name string) string{
+			st:=qstr.Right(virus,1)
+			for st==qstr.Right(virus,1){
+				st=chr(byte(65+rand.Intn(26)))
+			}
+			return "The virus ends with the letter: "+st
+		},
+	},
+	{	func(virus,name string) string{
+			st:=qstr.Right(virus,1)
+			r:= "The virus doesn't end with the letter: "+st
+			if got(r) { return "" }
+			return r
+		},
+	},
+	{	func(virus,name string) string{
+			n:=rand.Intn(len(virus))+1
+			l:=qstr.Mid(virus,n,1)
+			return "The virus does not contain the letter: "+strings.ToUpper(l)
+		},
+	},
+	{	func(virus,name string) string{
+			n:=RandomName()
+			if !NHave(n) { return "" }
+			if user.ses.files[n]=="*VIRUS*" { return "" }
+			return n+" is the virus!"
+		},
+	},
+	{
+		func(virus,name string) string{
+			if Sex[virus]=="F" {
+				return "The virus has a boy's name"
+			} else {
+				return "The virus has a girl's name"
+			}
+		},
+	},
+	{
+		func(virus,name string) string{
+			if Sex[virus]=="F" {
+				return "The virus does not have a girl's name"
+			} else {
+				return "The virus does not have a boy's name"
+			}
+		},
+	},
+
 }
 
 func CreateSession(){
@@ -50,6 +130,7 @@ func CreateSession(){
 	virus:=RandomName()
 	s.files[virus]="*VIRUS*" 
 	CSChat(virus+" is the virus")
+	// Define the 99 other files
 	for i:=0;i<99;i++{
 		rn:=""
 		for rn=="" || (NHave(rn)){  // Very ugly approach, but since Go has no support for do{}while or repeat+until, this was all I can do.... :-/
@@ -57,8 +138,9 @@ func CreateSession(){
 		}
 		CSChat(fmt.Sprintf("For record %d name %s was chosen",i,rn))
 		ft:="" 
-		for ft=="" {ft=Hints[rand.Intn(len(Hints))].h(virus,rn)}
+		for ft=="" || got(ft) {ft=Hints[rand.Intn(len(Hints))].h(virus,rn)}
 		CSChat("= Text: "+ft)
+		s.files[rn]=ft
 	}
 }
 
