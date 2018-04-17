@@ -116,6 +116,9 @@ func Login(){
 		mn:=!qff.Exists(file)
 		if  mn { CreateUser(file,username,password) }
 		if LoadUser(file,username,password) { 
+			if !user.insession{
+				CreateSession()
+			}
 			return
 		}
 	}
