@@ -22,7 +22,7 @@ func wred(s string) { fmt.Print(red(s)) }
 func ai(question string) string{
 	wmag(question)
 	//fmt.Print(ansistring.SCol(question,ansistring.A_Magenta,0)+" ")
-	fmt.Print(ansistring.ICol(ansistring.A_Cyan,0,0))
+	fmt.Print(ansistring.ISCol(ansistring.A_Cyan,0))
 	ret:=qstr.RawInput("")
 	fmt.Print(ansistring.ANUL())
 	return ret
