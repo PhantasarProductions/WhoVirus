@@ -1,7 +1,7 @@
 package main
 
 import(
-	"fmt",
+	"fmt"
 	"strings"
 )
 
@@ -47,7 +47,7 @@ func RunSession(){
 	doing("Session has begun","\n Type either HELP or RULES for extra instructions")
 	for{
 		c:=ai("Ok > ")
-		p:=strings.split(c," ")
+		p:=strings.Split(c," ")
 		fmt.Print(p[0]) // I must close this session now, but I don't want parse errors. :)
 	}
 }
