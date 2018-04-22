@@ -8,7 +8,7 @@ import(
 	"strings"
 )
 
-var CSDBG = true // When true debugging information is shown during creation of the session.
+var CSDBG = false // When true debugging information is shown during creation of the session.
 
 func CSChat(k string){
 	if CSDBG { fmt.Println("DEBUG> ",k) }
