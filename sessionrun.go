@@ -20,8 +20,8 @@ func init(){
 		"Prints this help",
 		func( para [] string){
 			for k,v := range cmd {
-				fmt.Println(k)
-				fmt.Println("\t"+v.help)
+				fmt.Println(cya(k))
+				fmt.Println("\t"+yel(v.help))
 			}
 		},
 	}
