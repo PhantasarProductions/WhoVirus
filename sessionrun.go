@@ -48,6 +48,14 @@ func RunSession(){
 	for{
 		c:=ai("Ok > ")
 		p:=strings.Split(c," ")
-		fmt.Print(p[0]) // I must close this session now, but I don't want parse errors. :)
+		para:=[]string{}
+		for i:=1;i<len(p);i++ {para=append(para,p[i])}
+		opdracht:=strings.ToUpper(p[0])
+		if _,ok:=cmd[opdracht];ok {
+			 cmd[opdracht].fun(para)
+		} else {
+			fmt.Println(red("ERROR! "),yel("Unknown command or file name"))
+		}
+		//fmt.Print(p[0]) // I must close this session now, but I don't want parse errors. :)
 	}
 }
