@@ -132,6 +132,7 @@ func CreateSession(){
 	user.ses = session{}
 	s:=&user.ses
 	s.files = map[string] string{}
+	s.revealed = map[string] bool{}
 	// Define the virus
 	virus:=RandomName()
 	s.files[virus]="*VIRUS*" 
@@ -147,6 +148,7 @@ func CreateSession(){
 		for ft=="" || got(ft) {ft=Hints[rand.Intn(len(Hints))].h(virus,rn)}
 		CSChat("= Text: "+ft)
 		s.files[rn]=ft
+		s.revealed[rn]=false
 	}
 }
 

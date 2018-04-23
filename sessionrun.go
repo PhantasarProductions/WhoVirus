@@ -2,7 +2,9 @@ package main
 
 import(
 	"fmt"
+	"sort"
 	"strings"
+	"trickyunits/qstr"
 )
 
 
@@ -13,10 +15,10 @@ type tCommando struct {
 }
 
 
-var cmd = map[string] tCommando {}
+var cmd = map[string] *tCommando {}
 
 func init(){
-	cmd["HELP"] = tCommando{
+	cmd["HELP"] = &tCommando{
 		"Prints this help",
 		func( para [] string){
 			for k,v := range cmd {
@@ -25,7 +27,7 @@ func init(){
 			}
 		},
 	}
-	cmd["RULES"] = tCommando{
+	cmd["RULES"] = &tCommando{
 		"Tells you the rules of the game",
 		func ( para[] string) {
 			fmt.Println("In this game your computer is infected with a virus")
@@ -39,6 +41,27 @@ func init(){
 			fmt.Println("\nYou can type the name of the file by typing its name (case sensitive)")
 			fmt.Println("You can use the commands in order to do extra stuff. The \"HELP\" command will tell you which commands you have")
 			fmt.Println("\n\n\t\tGood luck")
+		},
+	}
+	cmd["DIR"] = &tCommando{
+		"Shows all files",
+		func( para[] string) {
+			sorter:=[]string{}
+			for n,_ := range user.ses.files{
+				allow:=true // This variable will be used to allow more specific output
+				if allow {
+					sorter=append(sorter,n)
+				}
+			}
+			sort.Strings(sorter)
+			for _,n:=range sorter{
+				v:=user.ses.files[n]
+				fmt.Print(cya(qstr.Left(n+"                    ",20)+" "))
+				if user.ses.revealed[n] {
+					fmt.Print(yel(v))
+				}
+				fmt.Println("")
+			}
 		},
 	}
 }
