@@ -74,15 +74,15 @@ var Hints = []tHint{
 	},
 	{	func(virus,name string) string{
 			st:=qstr.Right(virus,1)
-			for st==qstr.Right(virus,1){
-				st=chr(byte(65+rand.Intn(26)))
+			for st==strings.ToUpper(qstr.Right(virus,1)){
+				st=strings.ToUpper(chr(byte(65+rand.Intn(26))))
 			}
 			return "The virus ends with the letter: "+st
 		},
 	},
 	{	func(virus,name string) string{
 			st:=qstr.Right(virus,1)
-			r:= "The virus doesn't end with the letter: "+st
+			r:= "The virus doesn't end with the letter: "+strings.ToUpper(st)
 			if got(r) { return "" }
 			return r
 		},
