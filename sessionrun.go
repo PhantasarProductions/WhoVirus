@@ -16,6 +16,7 @@ type tCommando struct {
 
 
 var cmd = map[string] *tCommando {}
+var running bool
 
 func init(){
 	cmd["HELP"] = &tCommando{
@@ -69,7 +70,8 @@ func init(){
 
 func RunSession(){
 	doing("Session has begun","\n Type either HELP or RULES for extra instructions")
-	for{
+	running=true
+	for running {
 		c:=ai("Ok > ")
 		p:=strings.Split(c," ")
 		para:=[]string{}
@@ -77,6 +79,15 @@ func RunSession(){
 		opdracht:=strings.ToUpper(p[0])
 		if _,ok:=cmd[opdracht];ok {
 			 cmd[opdracht].fun(para)
+		} else if content,ok:=user.ses.files[p[0]]; ok {
+			if content=="*VIRUS*" {
+				fmt.Println(red("I AM THE VIRUS! I'VE DELETED YOUR ENTIRE SYSTEM!\n\nGAME OVER!!!"))
+				running=false
+			} else {
+				user.ses.revealed[p[0]]=true
+				user.ses.runs++
+				fmt.Println(yel(content))
+			}
 		} else {
 			fmt.Println(red("ERROR! "),yel("Unknown command or file name"))
 		}
