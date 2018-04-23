@@ -108,7 +108,7 @@ var girls = []string{
 	"Ilse",
 	"Inge",
 	"Josephine",
-	"Johanna,",
+	"Johanna",
 	"Jolanda",
 	"Karla",
 	"Lea",
