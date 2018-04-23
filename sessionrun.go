@@ -64,6 +64,7 @@ func init(){
 			}
 		},
 	}
+	cmd["LS"] = cmd["DIR"]
 }
 
 func RunSession(){
