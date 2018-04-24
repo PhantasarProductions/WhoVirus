@@ -3,6 +3,7 @@ package main
 import(
 	"fmt"
 	"sort"
+	"math"
 	"strings"
 	"trickyunits/qstr"
 )
@@ -46,7 +47,7 @@ func init(){
 	}
 	cmd["DIR"] = &tCommando{
 		"Shows all files",
-		func( para[] string) {
+		func( para[] string ) {
 			sorter:=[]string{}
 			for n,_ := range user.ses.files{
 				allow:=true // This variable will be used to allow more specific output
@@ -66,6 +67,44 @@ func init(){
 		},
 	}
 	cmd["LS"] = cmd["DIR"]
+	cmd["DEL"] = &tCommando{
+		"Deletes a file",
+		func( para[] string ) {
+			if len(para)<1 { 
+				fmt.Println(red("ERROR! "),yel("Invalid input"))
+				return
+			}
+			file:=para[0]
+			if content,ok:=user.ses.files[file];ok{
+				fmt.Println(cya(file)+" "+yel("has been deleted"))
+				if content=="*VIRUS*"{
+					fmt.Println(yel("CONGRATULATIONS! YOU KILLED THE VIRUS!"))
+					total:=0
+					fmt.Println(yel("Files run  x 1: ")+cya(fmt.Sprintf("%d",user.ses.runs))); total += user.ses.runs
+					fmt.Println(yel("Deletions  x10: ")+cya(fmt.Sprintf("%d",user.ses.deletions))); total += (user.ses.deletions*10)
+					fmt.Println();
+					fmt.Println(yel("Total Score:    ")+cya(fmt.Sprintf("%d",total)))
+					user.insession=false
+					user.sessions++
+					user.totalscore=+total
+					fmt.Println("\n\n");
+					fmt.Println(yel("Sessions:      ")+cya(fmt.Sprintf("%d",user.sessions)))
+					fmt.Println(yel("Total:         ")+cya(fmt.Sprintf("%d",user.totalscore)))
+					fmt.Println(yel("Average Score: ")+cya(fmt.Sprintf("%d",int(math.Round(float64(user.totalscore/user.sessions))))))
+					fmt.Println();
+					running=false
+				} else {
+					fmt.Println(mag("Unfortunately the file you deleted was not the virus"))
+					user.ses.deletions++
+				}
+				delete ( user.ses.files,file )
+			} else {
+				fmt.Println(red("ERROR! "),yel("File not found"))
+			}
+		},
+	}
+	cmd["UNLINK"]=cmd["DEL"]
+	cmd["RM"]=cmd["DEL"]
 }
 
 func RunSession(){
