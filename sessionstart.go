@@ -130,6 +130,18 @@ var Hints = []tHint{
 			return ret
 		},
 	},
+	{
+		func(virus, name string) string{
+			a:=rand.Intn(10)+5
+			if len(virus)>a { return fmt.Sprintf("The virus has less than %d letters") } else {return ""}
+		},
+	},
+	{
+		func(virus, name string) string{
+			a:=rand.Intn(10)+5
+			if len(virus)<a { return fmt.Sprintf("The virus has more than %d letters") } else {return ""}
+		},
+	},
 
 }
 
