@@ -124,6 +124,7 @@ func init(){
 					fmt.Println(yel("Average Score: ")+cya(fmt.Sprintf("%d",int(math.Round(float64(user.totalscore/user.sessions))))))
 					fmt.Println();
 					running=false
+					user.insession=false
 				} else {
 					fmt.Println(mag("Unfortunately the file you deleted was not the virus"))
 					user.ses.deletions++
@@ -138,8 +139,14 @@ func init(){
 	cmd["RM"]=cmd["DEL"]
 	cmd["SAVE"]=&tCommando{
 		"Saves user data. (In case you fear a computer malfunction)",
-		func( para[] string) { SaveUser() },
+		func( para[] string) { user.insession=true; SaveUser() },
 	}
+	cmd["QUIT"]=&tCommando{
+		"Saves current session and quits",
+		func(para[] string) { running=false; goquit=true },
+	}
+	cmd["BYE"]=cmd["QUIT"]
+	cmd["EXIT"]=cmd["QUIT"]
 }
 
 func RunSession(){
@@ -158,6 +165,7 @@ func RunSession(){
 			if content=="*VIRUS*" {
 				fmt.Println(red("I AM THE VIRUS! I'VE DELETED YOUR ENTIRE SYSTEM!\n\nGAME OVER!!!"))
 				running=false
+				user.insession=false
 			} else {
 				user.ses.revealed[p[0]]=true
 				user.ses.runs++
@@ -169,7 +177,7 @@ func RunSession(){
 		//fmt.Print(p[0]) // I must close this session now, but I don't want parse errors. :)
 		if !running && !goquit {
 			running=yes("Start a new session")
-			if running { SaveUser(); CreateSession() }
+			if running { CreateSession(); user.insession=true; SaveUser() }
 		}
 	}
 	SaveUser()
