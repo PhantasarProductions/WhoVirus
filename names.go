@@ -4,7 +4,7 @@ var boys = []string{
 	"Hans",
 	"Anders",
 	"Albus",
-	"Andrianus",
+	"Adrianus",
 	"Andre",
 	"Andreas",
 	"Bernhard",
