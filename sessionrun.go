@@ -47,7 +47,7 @@ func init(){
 		},
 	}
 	cmd["DIR"] = &tCommando{
-		"Shows all files",
+		"Shows all files\n- When used without parameters all files are shown\nWhen a parameter is prefixed with a * you will see all files suffixed with that. You can also use * as a suffix for the other effect\n- %<number> displays all files with that number of letters\n\nPlease note, of all files you've seen the content will be displayed as well when using this comment",
 		func( para[] string ) {
 			sorter:=[]string{}
 			for n,_ := range user.ses.files{
