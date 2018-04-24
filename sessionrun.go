@@ -30,6 +30,13 @@ func init(){
 			}
 		},
 	}
+	cmd["SCORES"] = &tCommando{
+		"Tells you the total scores of your previous sessions",
+		func ( para[] string ) {
+			fmt.Println(yel("Sessions:    "),cya(fmt.Sprintf("%d",user.sessions)))
+			fmt.Println(yel("Total Score: "),cya(fmt.Sprintf("%d",user.totalscore)))
+		},
+	}	
 	cmd["RULES"] = &tCommando{
 		"Tells you the rules of the game",
 		func ( para[] string) {
@@ -107,7 +114,7 @@ func init(){
 					fmt.Println(yel("Total Score:    ")+cya(fmt.Sprintf("%d",total)))
 					user.insession=false
 					user.sessions++
-					user.totalscore=+total
+					user.totalscore+=total
 					fmt.Println("\n\n");
 					fmt.Println(yel("Sessions:      ")+cya(fmt.Sprintf("%d",user.sessions)))
 					fmt.Println(yel("Total:         ")+cya(fmt.Sprintf("%d",user.totalscore)))
