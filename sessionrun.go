@@ -53,16 +53,16 @@ func init(){
 			for n,_ := range user.ses.files{
 				allow:=true // This variable will be used to allow more specific output
 				if len(para)>0 {
-					allow=false
+					//allow=false
 					for _,p:=range para{
-						allow=allow || p==n
-						if qstr.Suffixed(p,"*") { allow=allow || qstr.Prefixed(n,qstr.Left (p,len(p)-1)) }
-						if qstr.Prefixed(p,"*") { allow=allow || qstr.Suffixed(n,qstr.Right(p,len(p)-1)) }
+						allow=allow && p==n
+						if qstr.Suffixed(p,"*") { allow=allow && qstr.Prefixed(n,qstr.Left (p,len(p)-1)) }
+						if qstr.Prefixed(p,"*") { allow=allow && qstr.Suffixed(n,qstr.Right(p,len(p)-1)) }
 						if qstr.Prefixed(p,"%") {
 							a:=qstr.Right(p,len(p)-1)
 							v,e:=conv.ParseInt(a,10,32)
 							if e!=nil { fmt.Print(red("ERROR! "),yel(e.Error())); return }
-							allow = allow || int64(len(n))==v
+							allow = allow && int64(len(n))==v
 						}
 					}
 				}
