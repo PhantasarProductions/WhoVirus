@@ -73,6 +73,8 @@ func LoadUser(f,un,pw string) bool{
 	d:=string(b)
 	l:=strings.Split(d,"\n")
 	user=tuser{}
+	user.file=f
+	user.name=un
 	for li,ln:=range l {
 		if ln!="" {
 			p:=strings.Index(ln," ")

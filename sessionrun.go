@@ -132,4 +132,5 @@ func RunSession(){
 		}
 		//fmt.Print(p[0]) // I must close this session now, but I don't want parse errors. :)
 	}
+	SaveUser()
 }
