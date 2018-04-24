@@ -58,6 +58,7 @@ func init(){
 			sort.Strings(sorter)
 			for _,n:=range sorter{
 				v:=user.ses.files[n]
+				fmt.Print(mag(qstr.Right(fmt.Sprintf("     %d",len(n)),4))," ")
 				fmt.Print(cya(qstr.Left(n+"                    ",20)+" "))
 				if user.ses.revealed[n] {
 					fmt.Print(yel(v))

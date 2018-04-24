@@ -73,7 +73,7 @@ var Hints = []tHint{
 		},
 	},
 	{	func(virus,name string) string{
-			st:=qstr.Right(virus,1)
+			st:=strings.ToUpper(qstr.Right(virus,1))
 			for st==strings.ToUpper(qstr.Right(virus,1)){
 				st=strings.ToUpper(chr(byte(65+rand.Intn(26))))
 			}
@@ -126,7 +126,8 @@ var Hints = []tHint{
 	{
 		func(virus, name string) string{
 			ret:=""
-			if strings.ToUpper(virus)~=strings.ToUpper(ser.name) { ret="The virus has your name" }
+			if strings.ToUpper(virus)!=strings.ToUpper(user.name) { ret="The virus has your name" }
+			return ret
 		},
 	},
 
