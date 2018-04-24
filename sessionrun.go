@@ -136,11 +136,16 @@ func init(){
 	}
 	cmd["UNLINK"]=cmd["DEL"]
 	cmd["RM"]=cmd["DEL"]
+	cmd["SAVE"]=&tCommando{
+		"Saves user data. (In case you fear a computer malfunction)",
+		func( para[] string) { SaveUser() },
+	}
 }
 
 func RunSession(){
 	doing("Session has begun","\n Type either HELP or RULES for extra instructions")
 	running=true
+	user.insession=true
 	for running {
 		c:=ai("Ok > ")
 		p:=strings.Split(c," ")
