@@ -19,6 +19,7 @@ type tCommando struct {
 
 var cmd = map[string] *tCommando {}
 var running bool
+var goquit  bool
 
 func init(){
 	cmd["HELP"] = &tCommando{
@@ -54,7 +55,7 @@ func init(){
 		},
 	}
 	cmd["DIR"] = &tCommando{
-		"Shows all files\n- When used without parameters all files are shown\nWhen a parameter is prefixed with a * you will see all files suffixed with that. You can also use * as a suffix for the other effect\n- %<number> displays all files with that number of letters\n\nPlease note, of all files you've seen the content will be displayed as well when using this comment",
+		"Shows all files\n\t- When used without parameters all files are shown\n\tWhen a parameter is prefixed with a * you will see all files suffixed with that. You can also use * as a suffix for the other effect\n\t- ! can be used as the anti-*. Working is the same if the prefix/suffix are NOT what is asked\n\t- %<number> displays all files with that number of letters\n\t\n\tPlease note, of all files you've seen the content will be displayed as well when using this comment",
 		func( para[] string ) {
 			sorter:=[]string{}
 			for n,_ := range user.ses.files{
@@ -62,8 +63,10 @@ func init(){
 				if len(para)>0 {
 					//allow=false
 					for _,p:=range para{
-						if qstr.Suffixed(p,"*") { allow=allow && qstr.Prefixed(n,qstr.Left (p,len(p)-1)) 
-						} else if qstr.Prefixed(p,"*") { allow=allow && qstr.Suffixed(n,qstr.Right(p,len(p)-1)) 
+						if        qstr.Suffixed(p,"*") { allow=allow && qstr.Prefixed(n,qstr.Left (p,len(p)-1)) 
+						} else if qstr.Prefixed(p,"*") { allow=allow &&  qstr.Suffixed(n,qstr.Right(p,len(p)-1)) 
+						} else if qstr.Suffixed(p,"!") { allow=allow && !qstr.Prefixed(n,qstr.Left (p,len(p)-1)) 
+						} else if qstr.Prefixed(p,"!") { allow=allow && !qstr.Suffixed(n,qstr.Right(p,len(p)-1)) 
 						} else if qstr.Prefixed(p,"%") {
 							a:=qstr.Right(p,len(p)-1)
 							v,e:=conv.ParseInt(a,10,32)
@@ -159,6 +162,10 @@ func RunSession(){
 			fmt.Println(red("ERROR! "),yel("Unknown command or file name"))
 		}
 		//fmt.Print(p[0]) // I must close this session now, but I don't want parse errors. :)
+		if !running && !goquit {
+			running=yes("Start a new session")
+			if running { SaveUser(); CreateSession() }
+		}
 	}
 	SaveUser()
 }
