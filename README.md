@@ -8,3 +8,8 @@ The idea is that you have a file system with 100 files and one of them is a viru
 10 points for every file you delete while it was not the virus.
 
 Now try to delete the virus with as little points as possible.
+
+
+![image](https://user-images.githubusercontent.com/11202073/39189105-c49cd98a-47d1-11e8-987e-841701070d82.png)
+
+
