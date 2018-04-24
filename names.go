@@ -108,6 +108,7 @@ var girls = []string{
 	"Eva",
 	"Elena",
 	"Esmeralda",
+	"Esther",
 	"Frederica",
 	"Francesca",
 	"Franka",
