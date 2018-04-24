@@ -55,15 +55,16 @@ func init(){
 				if len(para)>0 {
 					//allow=false
 					for _,p:=range para{
-						allow=allow && p==n
-						if qstr.Suffixed(p,"*") { allow=allow && qstr.Prefixed(n,qstr.Left (p,len(p)-1)) }
-						if qstr.Prefixed(p,"*") { allow=allow && qstr.Suffixed(n,qstr.Right(p,len(p)-1)) }
-						if qstr.Prefixed(p,"%") {
+						if qstr.Suffixed(p,"*") { allow=allow && qstr.Prefixed(n,qstr.Left (p,len(p)-1)) 
+						} else if qstr.Prefixed(p,"*") { allow=allow && qstr.Suffixed(n,qstr.Right(p,len(p)-1)) 
+						} else if qstr.Prefixed(p,"%") {
 							a:=qstr.Right(p,len(p)-1)
 							v,e:=conv.ParseInt(a,10,32)
 							if e!=nil { fmt.Print(red("ERROR! "),yel(e.Error())); return }
 							allow = allow && int64(len(n))==v
-						}
+						} else if p=="boys"  { allow = allow && Sex[n]=="M"
+						} else if p=="girls" { allow = allow && Sex[n]=="F"
+						} else { allow=allow && p==n}
 					}
 				}
 				if allow {
@@ -74,7 +75,11 @@ func init(){
 			for _,n:=range sorter{
 				v:=user.ses.files[n]
 				fmt.Print(mag(qstr.Right(fmt.Sprintf("     %d",len(n)),4))," ")
-				fmt.Print(cya(qstr.Left(n+"                    ",20)+" "))
+				if Sex[n]=="F"{
+					fmt.Print(red(qstr.Left(n+"                    ",20)+" "))
+				} else {
+					fmt.Print(cya(qstr.Left(n+"                    ",20)+" "))
+				}
 				if user.ses.revealed[n] {
 					fmt.Print(yel(v))
 				}
