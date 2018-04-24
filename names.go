@@ -1,7 +1,7 @@
 package main
 
 var boys = []string{
-	"Hans",
+	"Achmed",
 	"Anders",
 	"Albus",
 	"Adrianus",
@@ -22,6 +22,7 @@ var boys = []string{
 	"Freddie",
 	"Gerardus",
 	"Gene",
+	"Hans",
 	"Harry",
 	"Henri",
 	"Isaac",
@@ -33,8 +34,10 @@ var boys = []string{
 	"Jacob",
 	"Jake",
 	"Jack",
+	"Joris",
 	"Karl",
 	"Klaas",
+	"Kees",
 	"Leo",
 	"Leonard",
 	"Laurens",
@@ -45,6 +48,7 @@ var boys = []string{
 	"Marco",
 	"Marc",
 	"Marcel",
+	"Mustafa",
 	"Nino",
 	"Nils",
 	"Nick",
@@ -55,6 +59,7 @@ var boys = []string{
 	"Paul",
 	"Paulus",
 	"Pedro",
+	"Quint",
 	"Rhemus",
 	"Ron",
 	"Ronald",
@@ -74,12 +79,15 @@ var boys = []string{
 	"Victor",
 	"Vladimir",
 	"Valentino",
+	"Wilhelmus",
+	"Willem",
 	"William",
 	"Waldo",
 	"Wally",
 	"Wim",
 	"Xavier",
 	"Zachery",
+	"Zack"
 }
 
 var girls = []string{
@@ -139,6 +147,7 @@ var girls = []string{
 	"Olga",
 	"Petra",
 	"Paula",
+	"Quinty",
 	"Rina",
 	"Ria",
 	"Renata",
