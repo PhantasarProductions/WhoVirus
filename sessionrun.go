@@ -118,8 +118,11 @@ func init(){
 					user.insession=false
 					user.sessions++
 					user.totalscore+=total
+					user.successes++
 					fmt.Println("\n\n");
 					fmt.Println(yel("Sessions:      ")+cya(fmt.Sprintf("%d",user.sessions)))
+					fmt.Println(yel("Succes:        ")+cya(fmt.Sprintf("%d",user.successes)))
+					fmt.Println(yel("Failures:      ")+cya(fmt.Sprintf("%d",user.failures)))
 					fmt.Println(yel("Total:         ")+cya(fmt.Sprintf("%d",user.totalscore)))
 					fmt.Println(yel("Average Score: ")+cya(fmt.Sprintf("%d",int(math.Round(float64(user.totalscore/user.sessions))))))
 					fmt.Println();
@@ -166,6 +169,8 @@ func RunSession(){
 				fmt.Println(red("I AM THE VIRUS! I'VE DELETED YOUR ENTIRE SYSTEM!\n\nGAME OVER!!!"))
 				running=false
 				user.insession=false
+				user.failures++
+				user.totalscore+=1000
 			} else {
 				user.ses.revealed[p[0]]=true
 				user.ses.runs++

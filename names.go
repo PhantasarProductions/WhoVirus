@@ -8,6 +8,7 @@ var boys = []string{
 	"Andre",
 	"Andreas",
 	"Bernhard",
+	"Bernard",
 	"Ben",
 	"Bennie",
 	"Bill",
@@ -92,7 +93,7 @@ var boys = []string{
 	"Wim",
 	"Xavier",
 	"Zachery",
-	"Zack"
+	"Zack",
 }
 
 var girls = []string{
@@ -140,6 +141,7 @@ var girls = []string{
 	"Johanna",
 	"Jolanda",
 	"Karla",
+	"Laverne",
 	"Lea",
 	"Lia",
 	"Maria",

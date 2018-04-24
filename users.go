@@ -20,6 +20,8 @@ type tuser struct{
 	totalscore int
 	sessions int
 	ansi bool
+	successes int
+	failures int
 }
 
 var user tuser
@@ -32,6 +34,8 @@ func SaveUser(){
 	wo+="INSESSION "+b2s(user.insession)+"\n"
 	wo+=fmt.Sprintf("TOTALSCORE %d\n",user.totalscore)
 	wo+=fmt.Sprintf("SESSIONS %d\n",user.sessions)
+	wo+=fmt.Sprintf("SUCCESSES %d\n",user.successes)
+	wo+=fmt.Sprintf("FAILURES %d\n",user.failures)
 	wo+="ANSI "+b2s(user.ansi)+"\n"
 	// Session data
 	// Writeout         
@@ -107,6 +111,14 @@ func LoadUser(f,un,pw string) bool{
 					i,e:=conv.ParseInt(a,10,32)
 					if e!=nil { panic(e); }
 					user.sessions=int(i)
+				case "SUCCESSES": 
+					i,e:=conv.ParseInt(a,10,32)
+					if e!=nil { panic(e); }
+					user.successes=int(i)
+				case "FAILURES": 
+					i,e:=conv.ParseInt(a,10,32)
+					if e!=nil { i=0 panic(e); }
+					user.failures=int(i)
 				default:
 						wred("ERROR! ")
 						wyel(fmt.Sprintf("I don't understand line %d -- %s",li,ln))
@@ -114,6 +126,7 @@ func LoadUser(f,un,pw string) bool{
 			}
 		}
 	}
+	//if user.successes==0 && user.failures==0 { user.successes=user.sessions } // correction (debug)
 	if user.password!=pw {
 		wred("ERROR! ") 
 		wyel("Incorrect password!\n")
