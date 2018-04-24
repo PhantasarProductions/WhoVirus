@@ -123,6 +123,12 @@ var Hints = []tHint{
 			return "Everything stated about the virus is true"
 		},
 	},
+	{
+		func(virus, name string) string{
+			ret:=""
+			if strings.ToUpper(virus)~=strings.ToUpper(ser.name) { ret="The virus has your name" }
+		},
+	},
 
 }
 
