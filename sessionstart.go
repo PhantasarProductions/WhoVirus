@@ -158,6 +158,15 @@ var Hints = []tHint{
 			return "The virus ends with a vowel"
 		},
 	},
+	{
+		func(virus,name string) string{
+			if len(virus)==len(name) {
+				return "I don't have as many letters in my name as the virus does"
+			} else {
+				return "I have as many letters in my name as the virus does"
+			}
+		},
+	},
 
 }
 
