@@ -142,6 +142,22 @@ var Hints = []tHint{
 			if len(virus)<a { return fmt.Sprintf("The virus has more than %d letters",a) } else {return ""}
 		},
 	},
+	{
+		func(virus, name string) string{
+			l:=qstr.Left(virus,1)
+			if l=="Y" {return ""}
+			if l=="A" || l=="E" || l=="I" || l=="O" || l=="U" { return "The virus starts with a consonant" }
+			return "The virus starts with a vowel"
+		},
+	},
+	{
+		func(virus, name string) string{
+			l:=strings.ToUpper(qstr.Right(virus,1))
+			if l=="Y" {return ""}
+			if l=="A" || l=="E" || l=="I" || l=="O" || l=="U" { return "The virus ends with a consonant" }
+			return "The virus ends with a vowel"
+		},
+	},
 
 }
 
