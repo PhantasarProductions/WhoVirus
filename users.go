@@ -117,7 +117,7 @@ func LoadUser(f,un,pw string) bool{
 					user.successes=int(i)
 				case "FAILURES": 
 					i,e:=conv.ParseInt(a,10,32)
-					if e!=nil { i=0 panic(e); }
+					if e!=nil { i=0; panic(e); }
 					user.failures=int(i)
 				default:
 						wred("ERROR! ")
