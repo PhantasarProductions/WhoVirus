@@ -196,8 +196,9 @@ var Hints = []tHint{
 			} else {
 				return ""
 			}
-		}
+		},
 	},
+	{
 		func(virus, name string) string{
 			l:=strings.ToUpper(qstr.Mid(virus,2,1))
 			if l=="Y" {return ""}
