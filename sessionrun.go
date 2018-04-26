@@ -170,7 +170,7 @@ func RunSession(){
 				running=false
 				user.insession=false
 				user.failures++
-				user.totalscore+=1000
+				user.totalscore+=250
 				user.sessions++
 			} else {
 				user.ses.revealed[p[0]]=true
