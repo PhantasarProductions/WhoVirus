@@ -59,7 +59,7 @@ var Hints = []tHint{
 	{	func(virus,name string) string{
 			l:=len(virus)
 			for l==len(virus){
-				l=rand.Intn(20)
+				l=rand.Intn(7)+3
 			}
 			r:= fmt.Sprintf("The virus has %d letters",l)
 			if got(r) { r="" }
@@ -167,7 +167,45 @@ var Hints = []tHint{
 			}
 		},
 	},
-
+	{
+		func(virus,name string) string{
+			e:=strings.ToUpper(qstr.Left(virus,1))
+			l:=strings.ToUpper(qstr.Right(virus,1))
+			if e==l {
+				return "The first letter of the virus does not match its last letter"
+			} else {
+				return "The first letter of the virus matches the last letter"
+			}
+		},
+	},
+	{
+		func(virus,name string) string{
+			e:=fmt.Sprintf("%d",len(virus))
+			r:=""
+			switch qstr.Right(e,1){
+				case "0","2","4","6","8": r="odd"
+				case "1","3","5","7","9": r="even"
+			}
+			return "The number of letters in the virus is "+r
+		},
+	},
+	{
+		func(virus,name string) string{
+			if virus!="Kenny"{
+				return "Oh my god! They killed the virus! You bastard!"
+			} else {
+				return ""
+			}
+		}
+	},
+		func(virus, name string) string{
+			l:=strings.ToUpper(qstr.Mid(virus,2,1))
+			if l=="Y" {return ""}
+			if l=="A" || l=="E" || l=="I" || l=="O" || l=="U" { return "A consonant is the second letter of the virus" }
+			return "A vowel is the second letter of the virus"
+		},
+	},
+	
 }
 
 func CreateSession(){
