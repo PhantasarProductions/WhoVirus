@@ -6,6 +6,7 @@ import(
 	"math"
 	"strings"
 	"trickyunits/qstr"
+	"trickyunits/ansistring"
 	conv "strconv"
 )
 
@@ -150,6 +151,20 @@ func init(){
 	}
 	cmd["BYE"]=cmd["QUIT"]
 	cmd["EXIT"]=cmd["QUIT"]
+	cmd["ANSI"]=&tCommando{
+		"Toggles ANSI ON or OFF",
+		func ( para[] string) {
+			if len(para)==0 {
+				user.ansi=!user.ansi
+			} else {
+				user.ansi=strings.ToUpper(para[0])=="ON"
+			}
+			u:="OFF"
+			if user.ansi { u="ON" }
+			doing("Turning ANSI ",u)
+			ansistring.ANSI_Use = user.ansi
+		},
+	}
 }
 
 func RunSession(){

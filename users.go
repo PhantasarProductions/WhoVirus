@@ -103,6 +103,7 @@ func LoadUser(f,un,pw string) bool{
 					user.insession=a=="true"
 				case "ANSI":
 					user.ansi=a=="true"
+					ansistring.ANSI_Use=user.ansi
 				case "TOTALSCORE":
 					i,e:=conv.ParseInt(a,10,32)
 					if e!=nil { panic(e); }
