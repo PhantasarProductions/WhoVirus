@@ -129,6 +129,7 @@ func init(){
 					fmt.Println();
 					running=false
 					user.insession=false
+					if GJAuth!=nil { GJSubmit(total) }
 				} else {
 					fmt.Println(mag("Unfortunately the file you deleted was not the virus"))
 					user.ses.deletions++
@@ -205,6 +206,7 @@ func RunSession(){
 				user.failures++
 				user.totalscore+=250
 				user.sessions++
+				GJFail()
 			} else {
 				user.ses.revealed[p[0]]=true
 				user.ses.runs++
