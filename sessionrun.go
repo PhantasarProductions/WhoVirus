@@ -165,6 +165,24 @@ func init(){
 			ansistring.ANSI_Use = user.ansi
 		},
 	}
+	if GJAuth!=nil {
+		cmd["GAMEJOLT"] = &tCommando{
+			"Allows you to enter your Game Jolt creditials so your progess will be tied to your account\n\tSyntax: GAMEJOLT <username> <token>",
+			func ( para[] string){
+				if len(para)<2 {
+					fmt.Println(red("ERROR! "),yel("Invalid input"))
+					return
+				}
+				if !GJLogin(para[0],para[1]){
+					fmt.Println(red("ERROR! "),yel("Logging in failed"))
+					return
+				}
+				user.gjuser=para[0]
+				user.gjtoken=para[1]
+				fmt.Println(cya("You've been succesfully logged in as "+para[0]))
+			},
+		}
+	}
 }
 
 func RunSession(){

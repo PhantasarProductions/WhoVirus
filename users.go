@@ -22,6 +22,8 @@ type tuser struct{
 	ansi bool
 	successes int
 	failures int
+	gjuser string
+	gjtoken string
 }
 
 var user tuser
@@ -36,6 +38,8 @@ func SaveUser(){
 	wo+=fmt.Sprintf("SESSIONS %d\n",user.sessions)
 	wo+=fmt.Sprintf("SUCCESSES %d\n",user.successes)
 	wo+=fmt.Sprintf("FAILURES %d\n",user.failures)
+	wo+=fmt.Sprintf("GJUSER %s\n",user.gjuser)
+	wo+=fmt.Sprintf("GJTOKEN %s\n",user.gjtoken)
 	wo+="ANSI "+b2s(user.ansi)+"\n"
 	// Session data
 	// Writeout         
@@ -101,6 +105,10 @@ func LoadUser(f,un,pw string) bool{
 					user.password=a
 				case "INSESSION":
 					user.insession=a=="true"
+				case "GJUSER":
+					user.gjuser=a
+				case "GJTOKEN":
+					user.gjtoken=a
 				case "ANSI":
 					user.ansi=a=="true"
 					ansistring.ANSI_Use=user.ansi
@@ -131,6 +139,11 @@ func LoadUser(f,un,pw string) bool{
 	if user.password!=pw {
 		wred("ERROR! ") 
 		wyel("Incorrect password!\n")
+	}
+	if user.gjuser!="" {
+		for !GJLogin(user.gjuser,user.gjtoken){
+			if !yes("Try again"){ break  }
+		}
 	}
 	if user.insession {
 		doing("Continuing","session")
