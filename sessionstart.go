@@ -206,7 +206,22 @@ var Hints = []tHint{
 			return "A vowel is the second letter of the virus"
 		},
 	},
-	
+	{
+		func(virus, name string) string{
+			u:=strings.ToUpper(virus)
+			m:=map[string] int {}
+			for i:=1;i<=len(u);i++ {
+				l:=qstr.Mid(u,i,1)
+				if _,ok:=m[l];!ok{ m[l]=0 }
+				m[l]++			
+			}
+			for _,c:=range m{
+				if c>1 { return "None of the letters within the virus occur multiple times"}
+			}
+			return "There are letters within the virus that occur multiple times"
+		},
+	},
+
 }
 
 func CreateSession(){
