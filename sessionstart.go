@@ -221,6 +221,24 @@ var Hints = []tHint{
 			return "There are letters within the virus that occur multiple times"
 		},
 	},
+	{ 
+		func(virus,name string) string{ return "I am the virus" },
+	}, /* Pretty useless hint! I know :P */ 
+	{
+		func(virus,name string) string{
+			if virus!="Georgia" { return "The virus shares its name with a country bordering Russia and a state in the United States of America" }
+			return ""
+		},
+	},
+	{ 
+		func(virus,name string) string{
+			l:=qstr.Left(virus,1)
+			for n,_:=range user.ses.files {
+				if l==qstr.Left(n,1) { return "There are no other files starting with the same letter as the virus does (deleted files included)" }
+			}
+			return "There is no virus"
+		},
+	},
 
 }
 
