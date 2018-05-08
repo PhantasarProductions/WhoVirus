@@ -64,15 +64,41 @@ func init(){
 				if len(para)>0 {
 					//allow=false
 					for _,p:=range para{
+						// The order of checks is VERY EXTREMELY IMPORTANT here!!!!!
 						if        qstr.Suffixed(p,"*") { allow=allow && qstr.Prefixed(n,qstr.Left (p,len(p)-1)) 
 						} else if qstr.Prefixed(p,"*") { allow=allow &&  qstr.Suffixed(n,qstr.Right(p,len(p)-1)) 
 						} else if qstr.Suffixed(p,"!") { allow=allow && !qstr.Prefixed(n,qstr.Left (p,len(p)-1)) 
 						} else if qstr.Prefixed(p,"!") { allow=allow && !qstr.Suffixed(n,qstr.Right(p,len(p)-1)) 
+						} else if qstr.Prefixed(p,"%!") || qstr.Prefixed(p,"<>") {
+							a:=qstr.Right(p,len(p)-2)
+							v,e:=conv.ParseInt(a,10,32)
+							if e!=nil { fmt.Println(red("ERROR! "),yel(e.Error())); return }
+							allow = allow && int64(len(n))!=v
 						} else if qstr.Prefixed(p,"%") {
 							a:=qstr.Right(p,len(p)-1)
 							v,e:=conv.ParseInt(a,10,32)
 							if e!=nil { fmt.Println(red("ERROR! "),yel(e.Error())); return }
 							allow = allow && int64(len(n))==v
+						} else if qstr.Prefixed(p,"<=") {
+							a:=qstr.Right(p,len(p)-2)
+							v,e:=conv.ParseInt(a,10,32)
+							if e!=nil { fmt.Println(red("ERROR! "),yel(e.Error())); return }
+							allow = allow && int64(len(n))<=v
+						} else if qstr.Prefixed(p,">=") {
+							a:=qstr.Right(p,len(p)-2)
+							v,e:=conv.ParseInt(a,10,32)
+							if e!=nil { fmt.Println(red("ERROR! "),yel(e.Error())); return }
+							allow = allow && int64(len(n))>=v
+						} else if qstr.Prefixed(p,"<") {
+							a:=qstr.Right(p,len(p)-1)
+							v,e:=conv.ParseInt(a,10,32)
+							if e!=nil { fmt.Println(red("ERROR! "),yel(e.Error())); return }
+							allow = allow && int64(len(n))<v
+						} else if qstr.Prefixed(p,">") {
+							a:=qstr.Right(p,len(p)-1)
+							v,e:=conv.ParseInt(a,10,32)
+							if e!=nil { fmt.Println(red("ERROR! "),yel(e.Error())); return }
+							allow = allow && int64(len(n))>v							
 						} else if p=="boys"  { allow = allow && Sex[n]=="M"
 						} else if p=="girls" { allow = allow && Sex[n]=="F"
 						} else { allow=allow && p==n}
