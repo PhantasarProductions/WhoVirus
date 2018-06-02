@@ -231,10 +231,15 @@ func LoadUser(f,un,pw string) bool{
 	return user.password==pw
 }
 
+func pai(para int,quest string) string{
+	if len(os.Args)<para+1 { return ai(quest) }
+	return os.Args[para]
+}
+
 func Login(){
 	for {
-		username:= ai("UserName: ")
-		password:= ai("Password: ")
+		username:= pai(1,"UserName: ")
+		password:= pai(2,"Password: ")
 		file:=userdir+username
 		mn:=!qff.Exists(file)
 		if  mn { CreateUser(file,username,password) }
