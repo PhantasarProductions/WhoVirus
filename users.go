@@ -231,8 +231,10 @@ func LoadUser(f,un,pw string) bool{
 	return user.password==pw
 }
 
+var paibefore map[int] bool = map[int] bool {}
 func pai(para int,quest string) string{
-	if len(os.Args)<para+1 { return ai(quest) }
+	if paibefore[para] || len(os.Args)<para+1 { return ai(quest) }
+	paibefore[para]=true
 	return os.Args[para]
 }
 
