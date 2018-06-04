@@ -20,7 +20,7 @@
 		
 	Exceptions to the standard GNU license are available with Jeroen's written permission given prior 
 	to the project the exceptions are needed for.
-Version: 18.05.08
+Version: 18.06.04
 */
 package main
 
@@ -69,6 +69,7 @@ var boys = []string{
 	"Isaac",
 	"Ivo",
 	"James",
+	"Joe",
 	"Joseph",
 	"Jeroen",
 	"John",
@@ -110,6 +111,7 @@ var boys = []string{
 	"Paulus",
 	"Pedro",
 	"Quint",
+	"Randy",
 	"Rhemus",
 	"Ron",
 	"Ronald",
@@ -123,6 +125,10 @@ var boys = []string{
 	"Sirius",
 	"Sjoerd",
 	"Stan",
+	"Steve",
+	"Stephan",
+	"Stephano",
+	"Stephen",
 	"Theodore",
 	"Theo",
 	"Tinus",
@@ -165,6 +171,8 @@ var girls = []string{
 	"Carla",
 	"Carleyn",
 	"Candy",
+	"Cindy",
+	"Cynthia",
 	"Denise",
 	"Donna",
 	"Daisy",
@@ -190,6 +198,7 @@ var girls = []string{
 	"Hermione",
 	"Ilse",
 	"Inge",
+	"Jane",
 	"Jill",
 	"Josephine",
 	"Johanna",
@@ -273,4 +282,3 @@ var Names,Sex = namelist()
 func init(){
    if len(Names)<100 { panic("I need at least 100 names") }
 }
-
