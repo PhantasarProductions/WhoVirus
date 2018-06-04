@@ -1,3 +1,11 @@
+# NOTE!
+
+I was already planning to improve this game! 
+However as I did find out that Go was not the language it was promising to be (it's crap actually), I've decided to start over from scratch in C++.
+The new repository can be found [here](https://github.com/Tricky1975/Who_is_the_virus).
+
+This repository will be archived.
+
 # WhoVirus
 
 
@@ -11,5 +19,3 @@ Now try to delete the virus with as little points as possible.
 
 
 ![image](https://user-images.githubusercontent.com/11202073/39189105-c49cd98a-47d1-11e8-987e-841701070d82.png)
-
-
